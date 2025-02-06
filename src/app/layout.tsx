@@ -1,12 +1,13 @@
-import "~/styles/globals.css";
+import { GeistSans } from 'geist/font/sans';
+import { type Metadata } from 'next';
 
-import { GeistSans } from "geist/font/sans";
-import { type Metadata } from "next";
+import '~/styles/globals.css';
+import ReactQueryProvider from '~/utils/ReactQueryProvider';
 
 export const metadata: Metadata = {
-  title: "Debug Realm",
-  description: "Browse and purchase games with ease!",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  title: 'Debug Realm',
+  description: 'Browse and purchase games with ease!',
+  icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
 export default function RootLayout({
@@ -14,7 +15,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
     </html>
   );
 }

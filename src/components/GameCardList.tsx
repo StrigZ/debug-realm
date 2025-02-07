@@ -5,9 +5,10 @@ import Link from 'next/link';
 
 import { env } from '~/env';
 import { type Games } from '~/types';
+import { cn } from '~/utils/utils';
 
-type Props = {};
-export default function GameCardList({}: Props) {
+type Props = { className?: string };
+export default function GameCardList({ className }: Props) {
   const { data, isPending, error } = useQuery({
     queryKey: ['allGames'],
     queryFn: async () => {
@@ -25,7 +26,12 @@ export default function GameCardList({}: Props) {
   if (!data) return <div>no data</div>;
 
   return (
-    <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
+    <ul
+      className={cn(
+        'grid w-full grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8',
+        className,
+      )}
+    >
       {data.results.map((game) => (
         <li key={game.id}>
           <article className="relative flex aspect-[16_/_9] w-full flex-col overflow-hidden rounded bg-slate-600 shadow transition-transform hover:scale-110">

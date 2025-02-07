@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Loader } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 
 import { env } from '~/env';
 import { type APIResponse, type Game } from '~/types';
 import { cn } from '~/utils/utils';
+
+import GameCard from './GameCard';
 
 type Props = { className?: string };
 export default function GameCardList({ className }: Props) {
@@ -34,28 +34,10 @@ export default function GameCardList({ className }: Props) {
     >
       {(data.results as Game[]).map((game) => (
         <li key={game.id}>
-          <article className="relative flex aspect-[16_/_9] w-full flex-col overflow-hidden rounded bg-slate-600 shadow transition-transform hover:scale-110">
-            <Link
-              href={'games/' + game.slug}
-              className="absolute inset-0 z-10"
-            />
-            <div className="relative w-full flex-1">
-              <Image
-                className="object-cover object-top"
-                src={game.background_image}
-                alt={game.name + ' image'}
-                fill
-              />
-            </div>
-            <div className="p-2">
-              <p className="text-lg font-medium">{game.name}</p>
-              <ul className="flex gap-1 text-xs italic text-gray-200">
-                {game.genres.map((genre) => (
-                  <li key={genre.id}>{genre.name}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
+          <GameCard
+            classNames="aspect-[16_/_9] transition-transform hover:scale-110 shadow "
+            {...game}
+          />
         </li>
       ))}
     </ul>

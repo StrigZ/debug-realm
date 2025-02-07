@@ -6,7 +6,7 @@ import { cn } from '~/utils/utils';
 type Props = { className?: string };
 export default function Header({ className }: Props) {
   return (
-    <header className={cn('flex gap-4 p-8 font-mono', className)}>
+    <header className={cn('flex gap-4 p-8', className)}>
       <Link href="/" className="flex-1 text-4xl">
         Debug.Realm
       </Link>

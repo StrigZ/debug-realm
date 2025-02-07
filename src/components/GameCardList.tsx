@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { env } from '~/env';
-import { type Games } from '~/types';
+import { type APIResponse, type Game } from '~/types';
 import { cn } from '~/utils/utils';
 
 type Props = { className?: string };
@@ -15,7 +15,7 @@ export default function GameCardList({ className }: Props) {
       const response = await fetch(
         `https://api.rawg.io/api/games?key=${env.NEXT_PUBLIC_API_KEY}`,
       );
-      return (await response.json()) as Games;
+      return (await response.json()) as APIResponse;
     },
   });
 
@@ -32,7 +32,7 @@ export default function GameCardList({ className }: Props) {
         className,
       )}
     >
-      {data.results.map((game) => (
+      {(data.results as Game[]).map((game) => (
         <li key={game.id}>
           <article className="relative flex aspect-[16_/_9] w-full flex-col overflow-hidden rounded bg-slate-600 shadow transition-transform hover:scale-110">
             <Link

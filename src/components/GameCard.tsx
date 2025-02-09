@@ -12,9 +12,9 @@ export default function GameCard({
   background_image,
   name,
   genres,
-  classNames,
+  className,
   tags,
-}: Game & { classNames?: string }) {
+}: Game & { className?: string }) {
   const isNsfw =
     tags.find((tag) => nsfwTags.includes(tag.slug)) ??
     nsfwTags.includes(name.toLowerCase());
@@ -23,7 +23,7 @@ export default function GameCard({
     <article
       className={cn(
         'relative flex w-full flex-col overflow-hidden rounded bg-purple-900',
-        classNames,
+        className,
       )}
     >
       <Link href={'games/' + slug} className="absolute inset-0 z-10" />

@@ -19,7 +19,7 @@ export default function GameCardList({ className, games, isLoading }: Props) {
       {games.map((game) => (
         <li key={game.id}>
           <GameCard
-            classNames="aspect-[16_/_9] transition-transform hover:scale-110 shadow "
+            className="aspect-[16_/_9] shadow transition-transform hover:-translate-y-1"
             {...game}
           />
         </li>

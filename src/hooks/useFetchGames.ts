@@ -15,9 +15,10 @@ export default function useFetchGames() {
 
   const ordering = searchParams?.get('sort') ?? 'metacritic';
   const date = (searchParams?.get('date') as UrlParamsDatesValue) ?? 'all time';
+  const genre = searchParams?.get('genres') ?? null;
 
   const { data, isLoading } = useQuery({
-    queryKey: ['allGames', ordering, date],
+    queryKey: ['allGames', ordering, date, genre],
     queryFn: async () => {
       try {
         const queryParams = new URLSearchParams();
@@ -27,6 +28,9 @@ export default function useFetchGames() {
         }
         if (ordering) {
           queryParams.append('sort', '-' + ordering);
+        }
+        if (genre) {
+          queryParams.append('genres', genre);
         }
 
         const response = await fetch(
@@ -50,5 +54,10 @@ export default function useFetchGames() {
     }
   };
 
-  return { handleFilterChange, data, isLoading };
+  return {
+    handleFilterChange,
+    data,
+    isLoading,
+    activeGenre: genre,
+  };
 }

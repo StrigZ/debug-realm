@@ -11,7 +11,7 @@
 - [x] Create component to display filter
 - [x] Create component to display cart as a sliding sidebar
 - [x] Implement filtering logic on the main page
-- [ ] Implement filtering logic on the main page via sidebar
+- [x] Implement game filtering by genre
 - [ ] Implement cart context
 
 ## Game page

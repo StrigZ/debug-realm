@@ -1,5 +1,5 @@
 import { cn } from '~/lib/utils';
-import { UrlParams } from '~/types';
+import type { UrlParams } from '~/types';
 
 type Filter = {
   displayText: string;

@@ -6,14 +6,20 @@ import { useRouter } from 'next/navigation';
 
 import { env } from '~/env';
 import { getDatesParam } from '~/lib/utils';
-import type { APIResponse, UrlParams, UrlParamsDatesValue } from '~/types';
+import type {
+  APIResponse,
+  UrlParams,
+  UrlParamsDatesValue,
+  UrlParamsSortValue,
+} from '~/types';
 
 export default function useFetchGames() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  const ordering = searchParams?.get('sort') ?? 'metacritic';
+  const ordering =
+    (searchParams?.get('sort') as UrlParamsSortValue) ?? 'metacritic';
   const date = (searchParams?.get('date') as UrlParamsDatesValue) ?? 'all time';
   const genre = searchParams?.get('genres') ?? null;
 
@@ -59,5 +65,7 @@ export default function useFetchGames() {
     data,
     isLoading,
     activeGenre: genre,
+    activeDate: date,
+    activeOrdering: ordering,
   };
 }

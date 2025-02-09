@@ -14,6 +14,8 @@ export default function Home() {
     handleFilterChange,
     isLoading: isGamesQueryLoading,
     activeGenre,
+    activeDate,
+    activeOrdering,
   } = useFetchGames();
   const { data: genres, isLoading: isGenresQueryLoading } = useFetchGenres();
 
@@ -29,6 +31,8 @@ export default function Home() {
       />
       <div className="col-start-2 row-start-2 h-full w-full space-y-8 overflow-y-scroll pb-8 pr-8">
         <Filter
+          date={activeDate}
+          ordering={activeOrdering}
           classNames="sticky top-0 z-30"
           handleFilterChange={handleFilterChange}
         />

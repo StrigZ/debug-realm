@@ -11,8 +11,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '~/components/ui/drawer';
+import { cn } from '~/lib/utils';
 import { type Game } from '~/types';
-import { cn } from '~/utils/utils';
 
 import GameCard from './GameCard';
 

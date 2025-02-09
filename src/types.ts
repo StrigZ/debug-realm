@@ -4,7 +4,7 @@ export type Game = {
   name: string;
   released: string;
   tba: boolean;
-  background_image: string;
+  background_image?: string;
   rating: number;
   rating_top: number;
   ratings: {
@@ -91,3 +91,7 @@ export type APIResponse = {
   previous: string;
   results: unknown[];
 };
+
+export type UrlParams = 'sort' | 'date' | 'genres';
+export type UrlParamsDatesValue = 'week' | 'month' | 'year' | 'all time';
+export type UrlParamsSortValue = 'name' | 'rating' | 'released' | 'metacritic';

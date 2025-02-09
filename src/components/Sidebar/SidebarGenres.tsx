@@ -17,7 +17,7 @@ export default function SidebarGenres({}: Props) {
     },
   });
 
-  if (isPending) return <Loader className="animate-spin" size={128} />;
+  if (isPending) return <Loader className="mx-auto animate-spin" size={128} />;
 
   if (error) return 'An error has occurred: ' + error.message;
 

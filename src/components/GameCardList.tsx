@@ -1,29 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
 import { Loader } from 'lucide-react';
 
-import { env } from '~/env';
-import { type APIResponse, type Game } from '~/types';
-import { cn } from '~/utils/utils';
+import { cn } from '~/lib/utils';
+import { type Game } from '~/types';
 
 import GameCard from './GameCard';
 
-type Props = { className?: string };
-export default function GameCardList({ className }: Props) {
-  const { data, isPending, error } = useQuery({
-    queryKey: ['allGames'],
-    queryFn: async () => {
-      const response = await fetch(
-        `https://api.rawg.io/api/games?key=${env.NEXT_PUBLIC_API_KEY}`,
-      );
-      return (await response.json()) as APIResponse;
-    },
-  });
-
-  if (isPending) return <Loader className="animate-spin" size={128} />;
-
-  if (error) return 'An error has occurred: ' + error.message;
-
-  if (!data) return <div>no data</div>;
+type Props = { className?: string; games: Game[]; isLoading: boolean };
+export default function GameCardList({ className, games, isLoading }: Props) {
+  if (isLoading) return <Loader className="mx-auto animate-spin" size={128} />;
 
   return (
     <ul
@@ -32,7 +16,7 @@ export default function GameCardList({ className }: Props) {
         className,
       )}
     >
-      {(data.results as Game[]).map((game) => (
+      {games.map((game) => (
         <li key={game.id}>
           <GameCard
             classNames="aspect-[16_/_9] transition-transform hover:scale-110 shadow "

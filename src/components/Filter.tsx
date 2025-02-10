@@ -27,19 +27,24 @@ const filters: Filter[] = [
 type Props = {
   date: UrlParamsDatesValue;
   ordering: UrlParamsSortValue;
-  classNames?: string;
+  className?: string;
   handleFilterChange: (param: UrlParams, value: string) => void;
 };
 export default function Filter({
-  classNames,
+  className,
   handleFilterChange,
   date,
   ordering,
 }: Props) {
   return (
-    <header className={cn('space-x-4 bg-slate-950 pb-4', classNames)}>
+    <header
+      className={cn(
+        'space-y-4 bg-slate-950 md:space-x-4 md:space-y-0',
+        className,
+      )}
+    >
       <select
-        className="cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white"
+        className="w-full cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
         value={date}
         onChange={(e) => handleFilterChange('date', e.target.value)}
       >
@@ -50,7 +55,7 @@ export default function Filter({
         ))}
       </select>
       <select
-        className="cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white"
+        className="w-full cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
         value={ordering}
         onChange={(e) => handleFilterChange('sort', e.target.value)}
       >

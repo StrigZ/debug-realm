@@ -12,19 +12,17 @@ export default function GameCardList({ className, games, isLoading }: Props) {
       className={cn(
         'grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8',
         className,
+        {
+          'flex items-center justify-center': isLoading,
+        },
       )}
     >
       {isLoading ? (
-        <div className="absolute inset-0 flex h-full w-full items-center justify-center">
-          <Loader className="animate-spin" size={108} />
-        </div>
+        <Loader className="animate-spin" size={36} />
       ) : (
         games.map((game) => (
           <li key={game.id}>
-            <GameCard
-              className="aspect-[16_/_9] shadow transition-transform hover:-translate-y-1"
-              {...game}
-            />
+            <GameCard className="aspect-[16_/_9] shadow" {...game} />
           </li>
         ))
       )}

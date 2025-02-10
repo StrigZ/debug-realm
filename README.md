@@ -12,10 +12,11 @@
 - [x] Create component to display cart as a sliding sidebar
 - [x] Implement filtering logic on the main page
 - [x] Implement game filtering by genre
-- [ ] Implement cart context
+- [x] Implement cart context
+- [ ] Implement SSR
 
 ## Game page
 
-## Cart page
+- [ ] Create Game page
 
-- [ ] Create cart page
+## Cart page

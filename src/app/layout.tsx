@@ -1,6 +1,7 @@
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata } from 'next';
 
+import CartContextProvider from '~/context/CartContextProvider';
 import '~/styles/globals.css';
 import ReactQueryProvider from '~/utils/ReactQueryProvider';
 
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="dark overflow-hidden">
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <CartContextProvider>{children}</CartContextProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

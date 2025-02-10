@@ -20,27 +20,28 @@ export default function Home() {
   const { data: genres, isLoading: isGenresQueryLoading } = useFetchGenres();
 
   return (
-    <main className="grid h-screen grid-cols-[250px,1fr] grid-rows-[150px,1fr] items-center justify-center gap-x-8 bg-slate-950 px-2 font-mono text-white">
-      <Header className="col-span-full" />
-      <Sidebar
-        className="h-full w-full overflow-y-scroll pb-8"
-        genres={(genres?.results as Genre[]) ?? []}
-        isLoading={isGenresQueryLoading}
-        handleFilterChange={handleFilterChange}
-        activeGenre={activeGenre}
-      />
-      <div className="col-start-2 row-start-2 h-full w-full space-y-8 overflow-y-scroll pb-8 pr-8">
-        <Filter
-          date={activeDate}
-          ordering={activeOrdering}
-          classNames="sticky top-0 z-30"
+    <main className="flex h-screen flex-col gap-8 bg-slate-950 px-4 text-white">
+      <Header />
+      <div className="flex flex-col gap-8 md:flex-row md:overflow-hidden">
+        <Sidebar
+          className="shadow-inner md:h-full md:w-[300px]"
+          genres={(genres?.results as Genre[]) ?? []}
+          isLoading={isGenresQueryLoading}
           handleFilterChange={handleFilterChange}
+          activeGenre={activeGenre}
         />
-        <GameCardList
-          className="font-sans"
-          games={(games?.results as Game[]) ?? []}
-          isLoading={isGamesQueryLoading}
-        />
+        <div className="flex flex-1 flex-col gap-8">
+          <Filter
+            date={activeDate}
+            ordering={activeOrdering}
+            handleFilterChange={handleFilterChange}
+          />
+          <GameCardList
+            className="h-full overflow-y-scroll pb-8 font-sans"
+            games={(games?.results as Game[]) ?? []}
+            isLoading={isGamesQueryLoading}
+          />
+        </div>
       </div>
     </main>
   );

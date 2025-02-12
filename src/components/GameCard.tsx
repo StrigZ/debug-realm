@@ -15,7 +15,7 @@ export default function GameCard(
   const { tags, slug, name, background_image, genres } = game;
 
   const isNsfw =
-    tags.find((tag) => nsfwTags.includes(tag.slug)) ??
+    tags?.find((tag) => nsfwTags.includes(tag.slug)) ??
     (name
       .toLowerCase()
       .split(' ')

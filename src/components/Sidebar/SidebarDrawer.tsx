@@ -1,4 +1,7 @@
+'use client';
+
 import { Filter, X } from 'lucide-react';
+import { useState } from 'react';
 
 import {
   Drawer,
@@ -13,8 +16,10 @@ import SidebarContent from './SidebarContent';
 import type { SidebarProps } from './types';
 
 export default function SidebarDrawer(props: SidebarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Drawer direction="bottom">
+    <Drawer direction="bottom" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger className="fixed bottom-4 left-4 z-50 flex items-center justify-center rounded-full bg-white p-4 transition-transform hover:scale-110 active:scale-95 md:hidden">
         <Filter className="text-slate-950" />
       </DrawerTrigger>
@@ -26,7 +31,7 @@ export default function SidebarDrawer(props: SidebarProps) {
             <X />
           </DrawerClose>
         </DrawerHeader>
-        <SidebarContent {...props} />
+        <SidebarContent {...props} onFilterSelect={() => setIsOpen(false)} />
       </DrawerContent>
     </Drawer>
   );

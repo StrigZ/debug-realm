@@ -26,13 +26,13 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col gap-8 bg-slate-950 px-4 text-white">
       <Header />
-      <div className="flex flex-col gap-8 md:flex-row md:overflow-hidden">
+      <div className="flex flex-col gap-8 overflow-hidden md:flex-row">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense fallback={<Loader className="animate-spin" size={36} />}>
             <Sidebar className="shadow-inner md:h-full md:w-[300px]" />
           </Suspense>
         </HydrationBoundary>
-        <div className="flex flex-1 flex-col gap-8">
+        <div className="flex flex-1 flex-col gap-8 overflow-hidden">
           <Suspense fallback={<Loader className="animate-spin" size={36} />}>
             <Filter />
           </Suspense>

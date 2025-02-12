@@ -8,7 +8,10 @@ import { cn } from '~/lib/utils';
 
 import type { SidebarProps } from './types';
 
-export default function SidebarContent({ className }: SidebarProps) {
+export default function SidebarContent({
+  className,
+  onFilterSelect,
+}: SidebarProps) {
   const { data: genres } = useSuspenseQuery({
     queryKey: ['genres'],
     queryFn: getGenres,
@@ -34,7 +37,10 @@ export default function SidebarContent({ className }: SidebarProps) {
                 'w-full rounded px-4 py-2 text-left text-lg transition-colors hover:bg-slate-600 active:scale-95',
                 { 'bg-slate-600': activeGenre === genre.slug },
               )}
-              onClick={() => handleFilterChange('genre', genre.slug)}
+              onClick={() => {
+                handleFilterChange('genre', genre.slug);
+                onFilterSelect?.();
+              }}
             >
               {genre.name === 'Massively Multiplayer' ? 'MMO' : genre.name}
             </button>

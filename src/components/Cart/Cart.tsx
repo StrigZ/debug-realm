@@ -1,6 +1,6 @@
 'use client';
 
-import { ShoppingCart, X } from 'lucide-react';
+import { Check, Loader, ShoppingCart, X } from 'lucide-react';
 import { useWindowSize } from 'usehooks-ts';
 
 import {
@@ -13,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '~/components/ui/drawer';
+import { useCartContext } from '~/context/CartContextProvider';
 import { cn } from '~/lib/utils';
 
 import CartContent from './CartContent';
@@ -20,6 +21,8 @@ import CartContent from './CartContent';
 export default function Cart() {
   const { width = 0 } = useWindowSize();
   const isMobile = width < 768;
+
+  const { checkout, isCheckout, isCheckoutPending } = useCartContext();
 
   return (
     <Drawer direction={isMobile ? 'bottom' : 'right'}>
@@ -41,8 +44,25 @@ export default function Cart() {
         </DrawerHeader>
         <CartContent />
         <DrawerFooter>
-          <button type="button" className="text-xl">
-            Checkout
+          <button
+            type="button"
+            className={cn(
+              'flex items-center justify-center gap-2 rounded p-2 text-xl transition-transform active:scale-95 disabled:active:scale-100',
+              {
+                'bg-white text-slate-950': !isCheckout,
+              },
+            )}
+            onClick={checkout}
+            aria-disabled={isCheckout}
+            disabled={isCheckout}
+          >
+            {isCheckout && (
+              <>
+                Success! <Check className="text-green-500" />
+              </>
+            )}
+            {isCheckoutPending && <Loader className="animate-spin" />}
+            {!isCheckout && !isCheckoutPending && 'Checkout'}
           </button>
         </DrawerFooter>
       </DrawerContent>

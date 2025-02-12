@@ -21,7 +21,7 @@ export default function GameCardList({ className }: Props) {
   return (
     <ul
       className={cn(
-        'grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8',
+        'grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8',
         className,
       )}
     >

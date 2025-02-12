@@ -18,16 +18,24 @@ export type CartItem = {
 
 export type CartContext = {
   cart: CartItem[];
+  isCheckout: boolean;
+  isCheckoutPending: boolean;
   addItem: (game: Game) => void;
   deleteItem: (id: number) => void;
+  checkout: () => void;
 };
 
 const cartContext = createContext<CartContext>({
   cart: [],
+  isCheckout: false,
+  isCheckoutPending: false,
   addItem: () => {
     // do nothing
   },
   deleteItem: () => {
+    // do nothing
+  },
+  checkout: () => {
     // do nothing
   },
 });
@@ -37,18 +45,19 @@ export const useCartContext = () => useContext(cartContext);
 type Props = { children: ReactNode };
 export default function CartContextProvider({ children }: Props) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCheckoutPending, setIsCheckoutPending] = useState(false);
+  const [isCheckout, setIsCheckout] = useState(false);
 
-  const addItem: CartContext['addItem'] = useCallback(
-    (game) =>
-      setCart((prev) =>
-        prev.find((item) => item.id === game.id)
-          ? prev.map((item) =>
-              item.id === game.id ? { ...item, amount: ++item.amount } : item,
-            )
-          : [...prev, { game, id: game.id, amount: 1 }],
-      ),
-    [],
-  );
+  const addItem: CartContext['addItem'] = useCallback((game) => {
+    setCart((prev) =>
+      prev.find((item) => item.id === game.id)
+        ? prev.map((item) =>
+            item.id === game.id ? { ...item, amount: ++item.amount } : item,
+          )
+        : [...prev, { game, id: game.id, amount: 1 }],
+    );
+    setIsCheckout(false);
+  }, []);
 
   const deleteItem: CartContext['deleteItem'] = useCallback(
     (id) =>
@@ -70,7 +79,22 @@ export default function CartContextProvider({ children }: Props) {
     [],
   );
 
-  const value: CartContext = { cart, addItem, deleteItem };
+  const checkout: CartContext['checkout'] = useCallback(() => {
+    setIsCheckoutPending(true);
+    setTimeout(() => {
+      setIsCheckout(true);
+      setIsCheckoutPending(false);
+    }, 2000);
+  }, []);
+
+  const value: CartContext = {
+    cart,
+    isCheckout,
+    isCheckoutPending,
+    addItem,
+    deleteItem,
+    checkout,
+  };
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;
 }

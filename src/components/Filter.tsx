@@ -1,9 +1,7 @@
+'use client';
+
+import useFilter from '~/hooks/useFilter';
 import { cn } from '~/lib/utils';
-import type {
-  UrlParams,
-  UrlParamsDatesValue,
-  UrlParamsSortValue,
-} from '~/types';
 
 type Filter = {
   displayText: string;
@@ -11,31 +9,27 @@ type Filter = {
 };
 
 const dateFilters: Filter[] = [
-  { displayText: 'Week', value: 'week' },
-  { displayText: 'Month', value: 'month' },
-  { displayText: 'Year', value: 'year' },
   { displayText: 'All Time', value: 'all time' },
+  { displayText: 'Year', value: 'year' },
+  { displayText: 'Month', value: 'month' },
+  { displayText: 'Week', value: 'week' },
 ];
 
 const filters: Filter[] = [
-  { displayText: 'Name', value: 'name' },
-  { displayText: 'Rating', value: 'rating' },
-  { displayText: 'Released', value: 'released' },
   { displayText: 'Popularity', value: 'metacritic' },
+  { displayText: 'Released', value: 'released' },
+  { displayText: 'Rating', value: 'rating' },
+  { displayText: 'Name', value: 'name' },
 ];
 
 type Props = {
-  date: UrlParamsDatesValue;
-  ordering: UrlParamsSortValue;
   className?: string;
-  handleFilterChange: (param: UrlParams, value: string) => void;
 };
-export default function Filter({
-  className,
-  handleFilterChange,
-  date,
-  ordering,
-}: Props) {
+export default function Filter({ className }: Props) {
+  const { handleFilterChange, params } = useFilter();
+
+  const { date, ordering } = params;
+
   return (
     <header
       className={cn(
@@ -44,8 +38,8 @@ export default function Filter({
       )}
     >
       <select
-        className="w-full cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
-        value={date}
+        className="w-full min-w-32 cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
+        value={date ?? 'all time'}
         onChange={(e) => handleFilterChange('date', e.target.value)}
       >
         {dateFilters.map(({ displayText, value }) => (
@@ -55,8 +49,8 @@ export default function Filter({
         ))}
       </select>
       <select
-        className="w-full cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
-        value={ordering}
+        className="w-full min-w-32 cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
+        value={ordering ?? 'metacritic'}
         onChange={(e) => handleFilterChange('sort', e.target.value)}
       >
         {filters.map(({ displayText, value }) => (

@@ -1,9 +1,8 @@
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata } from 'next';
 
-import CartContextProvider from '~/context/CartContextProvider';
+import Providers from '~/providers';
 import '~/styles/globals.css';
-import ReactQueryProvider from '~/utils/ReactQueryProvider';
 
 export const metadata: Metadata = {
   title: 'Debug Realm',
@@ -17,9 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="dark overflow-hidden">
-        <ReactQueryProvider>
-          <CartContextProvider>{children}</CartContextProvider>
-        </ReactQueryProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

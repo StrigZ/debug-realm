@@ -1,3 +1,5 @@
+'use client';
+
 import { ShoppingCart, X } from 'lucide-react';
 import { useWindowSize } from 'usehooks-ts';
 

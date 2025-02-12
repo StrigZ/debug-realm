@@ -92,6 +92,6 @@ export type APIResponse = {
   results: unknown[];
 };
 
-export type UrlParams = 'sort' | 'date' | 'genres';
+export type UrlParams = 'sort' | 'date' | 'genre';
 export type UrlParamsDatesValue = 'week' | 'month' | 'year' | 'all time';
 export type UrlParamsSortValue = 'name' | 'rating' | 'released' | 'metacritic';

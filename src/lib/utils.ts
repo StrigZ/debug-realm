@@ -2,13 +2,13 @@ import { type ClassValue, clsx } from 'clsx';
 import { format, subMonths, subWeeks, subYears } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 
-import { UrlParamsDatesValue } from '~/types';
+import type { UrlParamsDatesValue } from '~/types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getDatesParam(param: UrlParamsDatesValue) {
+export function getDatesParamString(param: UrlParamsDatesValue) {
   const today = new Date();
   const formattedToday = format(today, 'yyyy-MM-dd');
 
@@ -26,7 +26,5 @@ export function getDatesParam(param: UrlParamsDatesValue) {
     case 'year':
       const formattedOneYearAgo = format(oneYearAgo, 'yyyy-MM-dd');
       return `${formattedOneYearAgo},${formattedToday}`;
-    case 'all time':
-      return null;
   }
 }

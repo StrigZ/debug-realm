@@ -13,7 +13,7 @@
 - [x] Implement filtering logic on the main page
 - [x] Implement game filtering by genre
 - [x] Implement cart context
-- [ ] Implement SSR
+- [x] Implement SSR
 
 ## Game page
 

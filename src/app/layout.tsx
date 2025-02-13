@@ -1,6 +1,7 @@
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata } from 'next';
 
+import Header from '~/components/Header';
 import Providers from '~/providers';
 import '~/styles/globals.css';
 
@@ -15,8 +16,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="dark overflow-hidden">
-        <Providers>{children}</Providers>
+      <body className="dark">
+        <Providers>
+          <main className="flex h-screen flex-col gap-8 bg-slate-950 text-white">
+            <Header />
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

@@ -29,6 +29,7 @@ export default function SidebarContent({
       <h2 className="hidden bg-slate-950 p-4 pt-0 text-3xl font-bold shadow md:inline">
         Genres
       </h2>
+
       <ul className={cn('space-y-1 overflow-y-auto')}>
         {genres.map((genre) => (
           <li key={genre.id} className="flex gap-4">

@@ -9,7 +9,7 @@ export default function Header({ className }: Props) {
   return (
     <header
       className={cn(
-        'flex items-center justify-center gap-4 p-8 md:justify-between',
+        'fixed top-0 z-50 flex w-full items-center justify-center gap-4 bg-slate-950/75 p-8 md:justify-between',
         className,
       )}
     >

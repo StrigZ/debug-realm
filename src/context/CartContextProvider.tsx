@@ -8,11 +8,11 @@ import {
   useState,
 } from 'react';
 
-import type { Game } from '~/types';
+import type { DetailedGame, Game } from '~/types';
 
 export type CartItem = {
   id: number;
-  game: Game;
+  game: Game | DetailedGame;
   amount: number;
 };
 
@@ -20,7 +20,7 @@ export type CartContext = {
   cart: CartItem[];
   isCheckout: boolean;
   isCheckoutPending: boolean;
-  addItem: (game: Game) => void;
+  addItem: (game: Game | DetailedGame) => void;
   deleteItem: (id: number) => void;
   checkout: () => void;
 };

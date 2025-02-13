@@ -4,9 +4,36 @@ import Link from 'next/link';
 
 import { useCartContext } from '~/context/CartContextProvider';
 import { cn } from '~/lib/utils';
-import { type Game } from '~/types';
+import type { Game, Tag } from '~/types';
 
-const nsfwTags = ['nsfw', 'hentai', 'sex', 'nudity'];
+export const nsfwTags = ['nsfw', 'hentai', 'sex', 'nudity'];
+
+export const checkIsNsfw = ({
+  tags,
+  name,
+  slug,
+}: {
+  tags?: Tag[];
+  name: string;
+  slug: string;
+}): boolean => {
+  if (tags) {
+    const nsfwTag = tags?.find((tag) => nsfwTags.includes(tag.slug));
+    if (nsfwTag) {
+      return true;
+    }
+  }
+  return (
+    name
+      .toLowerCase()
+      .split(' ')
+      .some((word) => nsfwTags.includes(word)) ||
+    slug
+      .toLowerCase()
+      .split('-')
+      .some((word) => nsfwTags.includes(word))
+  );
+};
 
 export default function GameCard(
   props: Game & { className?: string; isCartButtonVisible?: boolean },
@@ -14,23 +41,14 @@ export default function GameCard(
   const { className, isCartButtonVisible = true, ...game } = props;
   const { tags, slug, name, background_image, genres } = game;
 
-  const isNsfw =
-    tags?.find((tag) => nsfwTags.includes(tag.slug)) ??
-    (name
-      .toLowerCase()
-      .split(' ')
-      .some((word) => nsfwTags.includes(word)) ||
-      slug
-        .toLowerCase()
-        .split('-')
-        .some((word) => nsfwTags.includes(word)));
+  const isNsfw = checkIsNsfw({ name, slug, tags });
 
   const { addItem } = useCartContext();
 
   return (
     <article
       className={cn(
-        'relative flex w-full flex-col overflow-hidden rounded bg-purple-900',
+        'relative flex w-full flex-col overflow-hidden rounded bg-card',
         className,
       )}
     >

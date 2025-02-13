@@ -2,6 +2,8 @@
 
 # TODO:
 
+- [ ] Apply shadcn styling to everything
+
 ## Home page
 
 - [x] Create component to display game as a card
@@ -14,9 +16,12 @@
 - [x] Implement game filtering by genre
 - [x] Implement cart context
 - [x] Implement SSR
+- [ ] Implement pagination
 
 ## Game page
 
-- [ ] Create Game page
+- [x] Create Game page
 
-## Cart page
+## Cart
+
+- [ ] Fix game card overflow

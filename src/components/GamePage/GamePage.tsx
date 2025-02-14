@@ -1,7 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { Loader } from 'lucide-react';
+import { ArrowLeft, Loader } from 'lucide-react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { getGame } from '~/lib/get-game';
@@ -43,6 +44,12 @@ export default function GamePage({ slug }: Props) {
           <Details {...game} />
         </div>
       </div>
+      <Link
+        className="fixed left-6 top-36 z-20 flex items-center gap-2 rounded-md bg-card p-2 text-card-foreground transition-transform hover:scale-105 active:scale-95"
+        href="/"
+      >
+        <ArrowLeft /> Go back
+      </Link>
     </section>
   );
 }

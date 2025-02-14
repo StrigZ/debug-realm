@@ -8,8 +8,6 @@ import { cn } from '~/lib/utils';
 
 import Cart from './Cart/Cart';
 import { Button } from './ui/button';
-import { Label } from './ui/label';
-import { Switch } from './ui/switch';
 
 type Props = { className?: string };
 export default function Header({ className }: Props) {

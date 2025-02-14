@@ -3,7 +3,6 @@
 import { env } from '~/env';
 import type {
   APIResponse,
-  Game,
   UrlParamsDatesValue,
   UrlParamsSortValue,
 } from '~/types';

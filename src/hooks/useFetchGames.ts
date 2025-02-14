@@ -1,6 +1,8 @@
 'use client';
 
 import { type InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useIntersectionObserver } from 'usehooks-ts';
 
 import { getGames } from '~/lib/get-games';
 import { getQueryClient } from '~/lib/get-query-client';
@@ -35,9 +37,21 @@ export default function useFetchGames() {
       },
     });
 
+  const { isIntersecting, ref } = useIntersectionObserver({
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (isIntersecting && !isLoading) {
+      void fetchNextPage();
+    }
+  }, [isIntersecting, fetchNextPage, isLoading]);
+
   return {
     data,
-    isLoading: isFetchingNextPage || isLoading || status === 'pending',
+    isLoading: isLoading || status === 'pending',
+    isLoadingMore: isFetchingNextPage || isLoading || status === 'pending',
     fetchNextPage,
+    fetchMoreTriggerRef: ref,
   };
 }

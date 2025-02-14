@@ -16,7 +16,7 @@
 - [x] Implement game filtering by genre
 - [x] Implement cart context
 - [x] Implement SSR
-- [ ] Implement pagination
+- [x] Implement infinite scrolling
 
 ## Game page
 

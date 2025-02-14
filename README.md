@@ -17,6 +17,7 @@
 - [x] Implement cart context
 - [x] Implement SSR
 - [x] Implement infinite scrolling
+- [x] Make scrollbars thinner
 
 ## Game page
 

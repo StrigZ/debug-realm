@@ -34,7 +34,7 @@ export default function SidebarContent({
       </h2>
 
       <ul
-        className={cn('space-y-1 overflow-y-auto')}
+        className="scrollbar-thin space-y-1 overflow-y-auto"
         ref={containerRef}
         onScroll={handleScroll}
       >

@@ -26,7 +26,7 @@ export default function GameCardList({ className }: Props) {
     <>
       <ul
         className={cn(
-          'relative grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8',
+          'scrollbar-thin relative grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8 lg:pr-4',
           className,
         )}
         ref={containerRef}
@@ -36,7 +36,7 @@ export default function GameCardList({ className }: Props) {
           results.length === 0 ? (
             <div
               key={0}
-              className="flex h-full w-full items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center"
             >
               Nothing here...
             </div>

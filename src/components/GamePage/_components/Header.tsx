@@ -15,7 +15,7 @@ export default function Header(game: DetailedGame) {
       <div className="flex-[2] space-y-4">
         <h2 className="text-4xl drop-shadow-2xl">{game.name}</h2>
         {(metacritic || website || reddit_url || metacritic_url) && (
-          <ul className="flex text-muted">
+          <ul className="flex text-muted-foreground">
             {metacritic && metacritic_url && (
               <HeaderLink
                 displayText={`${metacritic}/100`}
@@ -62,7 +62,7 @@ function HeaderLink({ url, displayText, icon }: Props) {
   return (
     <a
       href={url}
-      className="flex items-center gap-2 border-r border-muted px-4 leading-none first:pl-0 last:border-none only:border-none only:p-0 hover:underline"
+      className="flex items-center gap-2 border-r border-border px-4 leading-none first:pl-0 last:border-none only:border-none only:p-0 hover:underline"
     >
       {icon}
       {displayText}

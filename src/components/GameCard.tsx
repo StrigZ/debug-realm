@@ -51,7 +51,7 @@ export default function GameCard(
   return (
     <article
       className={cn(
-        'relative flex w-full flex-col overflow-hidden rounded bg-card',
+        'relative flex w-full flex-col overflow-hidden rounded border bg-card text-card-foreground',
         className,
       )}
     >
@@ -59,11 +59,11 @@ export default function GameCard(
       <div
         className={cn(
           'relative flex w-full flex-1 items-center justify-center',
-          { 'border-b border-white': !background_image || isNsfw },
+          { 'border-b border-border': !background_image || isNsfw },
         )}
       >
         {isNsfw ? (
-          <CircleOff size={72} />
+          <CircleOff size={72} className="text-primary-foreground" />
         ) : background_image ? (
           <Image
             className="object-cover object-top"
@@ -78,7 +78,7 @@ export default function GameCard(
       </div>
       <div className="relative h-16 p-2">
         <p className="max-w-[80%] truncate text-lg font-medium">{name}</p>
-        <ul className="flex gap-1 text-xs italic text-gray-200">
+        <ul className="flex max-w-[80%] gap-1 truncate text-xs italic text-muted-foreground">
           {genres.map((genre) => (
             <li key={genre.id}>{genre.name}</li>
           ))}
@@ -86,10 +86,10 @@ export default function GameCard(
         {isCartButtonVisible && (
           <button
             type="button"
-            className="absolute inset-y-0 right-2 z-20 flex items-center justify-center rounded-full p-2 transition-transform hover:scale-110 active:scale-95"
+            className="absolute inset-y-0 right-2 z-20 flex items-center justify-center rounded-full p-2 text-primary transition-transform hover:scale-110 active:scale-95"
             onClick={() => addItem(game)}
           >
-            <ShoppingCart className="text-white" />
+            <ShoppingCart />
           </button>
         )}
       </div>

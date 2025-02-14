@@ -26,8 +26,8 @@ export default function Cart() {
 
   return (
     <Drawer direction={isMobile ? 'bottom' : 'right'}>
-      <DrawerTrigger className="fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-full bg-white p-4 transition-transform hover:scale-110 active:scale-95 md:static">
-        <ShoppingCart className="text-slate-950" />
+      <DrawerTrigger className="fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-full bg-primary p-4 text-primary-foreground shadow-xl transition-transform hover:scale-110 active:scale-95 md:static">
+        <ShoppingCart />
       </DrawerTrigger>
       <DrawerOverlay className="fixed inset-0 bg-black/40" />
       <DrawerContent
@@ -49,7 +49,7 @@ export default function Cart() {
             className={cn(
               'flex items-center justify-center gap-2 rounded p-2 text-xl transition-transform active:scale-95 disabled:active:scale-100',
               {
-                'bg-white text-slate-950': !isCheckout,
+                'bg-primary text-primary-foreground': !isCheckout,
               },
             )}
             onClick={checkout}

@@ -35,7 +35,7 @@ export default function GamePage({ slug }: Props) {
   }
 
   return (
-    <section className="relative rounded-lg shadow-xl">
+    <section className="relative h-full rounded-lg shadow-xl">
       <BackgroundImage {...game} />
       <div className="container mx-auto flex flex-col gap-8 p-4 px-2 pt-0 text-foreground">
         <Header {...game} />
@@ -45,7 +45,7 @@ export default function GamePage({ slug }: Props) {
         </div>
       </div>
       <Link
-        className="fixed left-6 top-36 z-20 flex items-center gap-2 rounded-md bg-card p-2 text-card-foreground transition-transform hover:scale-105 active:scale-95"
+        className="fixed left-6 top-36 z-20 flex items-center gap-2 rounded-md bg-primary p-2 text-primary-foreground transition-transform hover:scale-105 active:scale-95"
         href="/"
       >
         <ArrowLeft /> Go back

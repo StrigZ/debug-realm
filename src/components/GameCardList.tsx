@@ -26,7 +26,7 @@ export default function GameCardList({ className }: Props) {
     <>
       <ul
         className={cn(
-          'scrollbar-thin relative grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8 lg:pr-4',
+          'scrollbar-thin relative grid auto-rows-min grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8 lg:pr-4',
           className,
         )}
         ref={containerRef}
@@ -53,7 +53,10 @@ export default function GameCardList({ className }: Props) {
         )}
         {isLoadingMore && (
           <div className="col-span-full flex h-full w-full items-center justify-center">
-            <Loader className="animate-spin" size={36} />
+            <Loader
+              className="animate-spin text-primary-foreground"
+              size={36}
+            />
           </div>
         )}
         <li ref={fetchMoreTriggerRef} />

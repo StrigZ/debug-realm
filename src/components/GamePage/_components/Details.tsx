@@ -97,9 +97,9 @@ export default function Details({
             <span className="col-span-1 text-base font-semibold">
               {categoryName}:
             </span>
-            <ul className="col-span-full flex flex-wrap items-center gap-x-2 gap-y-1 text-foreground xl:col-start-2">
+            <ul className="col-span-full flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground xl:col-start-2">
               {properties.map(({ id, value }) => (
-                <li key={id} className="w-max text-base italic text-muted">
+                <li key={id} className="w-max text-base italic">
                   {typeof value === 'string' ? (
                     value
                   ) : (

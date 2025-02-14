@@ -24,7 +24,7 @@ export default function Home() {
   });
 
   return (
-    <div className="mt-[150px] flex flex-col gap-8 overflow-hidden px-4 md:flex-row">
+    <div className="mt-[150px] flex flex-col gap-8 overflow-hidden px-4 md:flex-row lg:px-0">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense
           fallback={

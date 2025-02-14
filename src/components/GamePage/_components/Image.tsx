@@ -13,7 +13,7 @@ export default function BackgroundImage({
   const isNsfw = checkIsNsfw({ name, slug, tags });
 
   return (
-    <div className="relative mx-auto flex h-[50vh] w-full max-w-[1920px] flex-1 grow items-center justify-center overflow-hidden shadow-xl">
+    <div className="relative mx-auto flex h-[50vh] w-full max-w-[1920px] flex-1 grow items-center justify-center overflow-hidden bg-accent text-accent-foreground">
       {isNsfw ? (
         <CircleOff size={98} />
       ) : background_image ? (

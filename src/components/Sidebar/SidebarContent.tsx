@@ -25,11 +25,11 @@ export default function SidebarContent({
   return (
     <nav
       className={cn(
-        'relative flex h-full flex-col gap-8 overflow-hidden',
+        'relative flex h-full flex-col gap-8 overflow-hidden text-foreground',
         className,
       )}
     >
-      <h2 className="hidden bg-slate-950 p-4 pt-0 text-3xl font-bold shadow md:inline">
+      <h2 className="hidden bg-background pl-8 pt-0 text-3xl font-bold md:inline">
         Genres
       </h2>
 
@@ -39,11 +39,14 @@ export default function SidebarContent({
         onScroll={handleScroll}
       >
         {genres.map((genre) => (
-          <li key={genre.id} className="flex gap-4">
+          <li key={genre.id} className="flex gap-4 lg:px-4">
             <button
               className={cn(
-                'w-full rounded px-4 py-2 text-left text-lg transition-colors hover:bg-slate-600 active:scale-95',
-                { 'bg-slate-600': activeGenre === genre.slug },
+                'w-full rounded px-4 py-2 text-left text-lg transition-colors hover:bg-accent active:scale-95',
+                {
+                  'bg-primary text-primary-foreground':
+                    activeGenre === genre.slug,
+                },
               )}
               onClick={() => {
                 handleFilterChange('genre', genre.slug);

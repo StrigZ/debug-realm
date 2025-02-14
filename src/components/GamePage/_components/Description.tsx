@@ -28,7 +28,7 @@ export default function Description({ description }: DetailedGame) {
       <div className={cn({ 'space-y-4': isExpanded })}>
         <div className="relative">
           <div
-            className={cn('relative space-y-4 text-muted', {
+            className={cn('relative space-y-4 text-muted-foreground', {
               'max-h-[250px] overflow-hidden': !isExpanded,
             })}
             ref={descriptionRef}

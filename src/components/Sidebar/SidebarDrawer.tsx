@@ -20,8 +20,8 @@ export default function SidebarDrawer(props: SidebarProps) {
 
   return (
     <Drawer direction="bottom" open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger className="fixed bottom-4 left-4 z-50 flex items-center justify-center rounded-full bg-white p-4 transition-transform hover:scale-110 active:scale-95 md:hidden">
-        <Filter className="text-slate-950" />
+      <DrawerTrigger className="fixed bottom-4 left-4 z-50 flex items-center justify-center rounded-full bg-accent p-4 text-accent-foreground transition-transform hover:scale-110 active:scale-95 md:hidden">
+        <Filter />
       </DrawerTrigger>
       <DrawerOverlay className="fixed inset-0 bg-black/40" />
       <DrawerContent className="mt-0 h-[min(50vh,450px)] w-full rounded-none">

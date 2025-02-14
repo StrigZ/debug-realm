@@ -33,23 +33,23 @@ export default function Filter({ className }: Props) {
   return (
     <header
       className={cn(
-        'space-y-4 bg-slate-950 md:space-x-4 md:space-y-0',
+        'space-y-4 bg-background md:space-x-4 md:space-y-0',
         className,
       )}
     >
       <select
-        className="w-full min-w-32 cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
+        className="w-full min-w-32 cursor-pointer rounded-lg border border-border bg-background p-4 text-foreground md:w-fit"
         value={date ?? 'all time'}
         onChange={(e) => handleFilterChange('date', e.target.value)}
       >
         {dateFilters.map(({ displayText, value }) => (
-          <option key={value} value={value}>
+          <option key={value} value={value} className="hover:bg-accent">
             {displayText}
           </option>
         ))}
       </select>
       <select
-        className="w-full min-w-32 cursor-pointer rounded-lg border border-white bg-slate-950 p-4 text-white md:w-fit"
+        className="w-full min-w-32 cursor-pointer rounded-lg border border-border bg-background p-4 text-foreground md:w-fit"
         value={ordering ?? 'metacritic'}
         onChange={(e) => handleFilterChange('sort', e.target.value)}
       >

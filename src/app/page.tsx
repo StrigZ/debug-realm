@@ -35,7 +35,7 @@ export default function Home() {
           <Sidebar className="shadow-inner md:h-full md:w-[300px]" />
         </Suspense>
       </HydrationBoundary>
-      <div className="flex flex-1 flex-col gap-8 overflow-hidden">
+      <div className="relative flex flex-1 flex-col gap-8 overflow-hidden">
         <Suspense
           fallback={
             <div className="flex h-full w-full items-center justify-center">

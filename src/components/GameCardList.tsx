@@ -3,6 +3,7 @@
 import { Loader } from 'lucide-react';
 
 import useFetchGames from '~/hooks/useFetchGames';
+import useScrollShadow from '~/hooks/useScrollShadow';
 import { cn } from '~/lib/utils';
 
 import GameCard from './GameCard';
@@ -10,6 +11,8 @@ import GameCard from './GameCard';
 type Props = { className?: string };
 export default function GameCardList({ className }: Props) {
   const { games, isLoading } = useFetchGames();
+
+  const { containerRef, handleScroll, isAtBottom } = useScrollShadow();
 
   if (isLoading)
     return (
@@ -19,24 +22,30 @@ export default function GameCardList({ className }: Props) {
     );
 
   return (
-    <ul
-      className={cn(
-        'grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8',
-        className,
+    <>
+      <ul
+        className={cn(
+          'relative grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8',
+          className,
+        )}
+        ref={containerRef}
+        onScroll={handleScroll}
+      >
+        {games && games.length > 0 ? (
+          games.map((game) => (
+            <li key={game.id}>
+              <GameCard className="aspect-[16_/_9] shadow" {...game} />
+            </li>
+          ))
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            Nothing here...
+          </div>
+        )}
+      </ul>
+      {!isAtBottom && (
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent"></div>
       )}
-    >
-      {games && games.length > 0 ? (
-        games.map((game) => (
-          <li key={game.id}>
-            <GameCard className="aspect-[16_/_9] shadow" {...game} />
-          </li>
-        ))
-      ) : (
-        <div className="flex h-full w-full items-center justify-center">
-          Nothing here...
-        </div>
-      )}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent"></div>
-    </ul>
+    </>
   );
 }

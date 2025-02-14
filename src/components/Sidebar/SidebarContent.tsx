@@ -3,6 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import useFilter from '~/hooks/useFilter';
+import useScrollShadow from '~/hooks/useScrollShadow';
 import { getGenres } from '~/lib/get-genres';
 import { cn } from '~/lib/utils';
 
@@ -19,10 +20,12 @@ export default function SidebarContent({
   const { handleFilterChange, params } = useFilter();
   const { genre: activeGenre } = params;
 
+  const { containerRef, handleScroll, isAtBottom } = useScrollShadow();
+
   return (
     <nav
       className={cn(
-        'relative flex h-full flex-col gap-8 overflow-hidden md:pb-4',
+        'relative flex h-full flex-col gap-8 overflow-hidden',
         className,
       )}
     >
@@ -30,7 +33,11 @@ export default function SidebarContent({
         Genres
       </h2>
 
-      <ul className={cn('space-y-1 overflow-y-auto')}>
+      <ul
+        className={cn('space-y-1 overflow-y-auto')}
+        ref={containerRef}
+        onScroll={handleScroll}
+      >
         {genres.map((genre) => (
           <li key={genre.id} className="flex gap-4">
             <button
@@ -48,6 +55,9 @@ export default function SidebarContent({
           </li>
         ))}
       </ul>
+      {!isAtBottom && (
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent"></div>
+      )}
     </nav>
   );
 }

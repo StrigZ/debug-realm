@@ -1,9 +1,10 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { type InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 
 import { getGames } from '~/lib/get-games';
 import { getQueryClient } from '~/lib/get-query-client';
+import type { APIResponse } from '~/types';
 
 import useFilter from './useFilter';
 
@@ -12,21 +13,31 @@ export default function useFetchGames() {
   const { params } = useFilter();
   const { date, genre, ordering } = params;
 
-  const { data: games, isLoading } = useQuery({
-    queryKey: ['games', { date, ordering, genre }],
-    queryFn: () => getGames({ date, ordering, genre }),
-    initialData: () => {
-      // Use the prefetched data if no filters are applied
-      if (!date && !ordering && !genre) {
-        return queryClient.getQueryData(['games', {}]);
-      }
+  const { data, isFetchingNextPage, isLoading, fetchNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['games', { date, ordering, genre }],
+      queryFn: ({ pageParam }) =>
+        getGames({ date, ordering, genre, page: pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _, lastPageParam) => {
+        return lastPage.next ? lastPageParam + 1 : undefined;
+      },
+      initialData: () => {
+        if (!date && !ordering && !genre) {
+          const cachedData = queryClient.getQueryData(['games', {}]);
 
-      return undefined;
-    },
-  });
+          if (cachedData) {
+            return cachedData as InfiniteData<APIResponse, number>;
+          }
+        }
+
+        return undefined;
+      },
+    });
 
   return {
-    games,
-    isLoading,
+    data,
+    isLoading: isFetchingNextPage || isLoading || status === 'pending',
+    fetchNextPage,
   };
 }

@@ -6,11 +6,12 @@ import GamePage from '~/components/GamePage/GamePage';
 import { getGame } from '~/lib/get-game';
 import { getGames } from '~/lib/get-games';
 import { getQueryClient } from '~/lib/get-query-client';
+import type { Game } from '~/types';
 
 export async function generateStaticParams() {
-  const games = await getGames();
+  const initialGames = await getGames();
 
-  return games.map((game) => ({
+  return (initialGames.results as Game[]).map((game) => ({
     slug: game.slug,
   }));
 }

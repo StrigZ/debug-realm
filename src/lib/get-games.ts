@@ -13,6 +13,7 @@ import { getDatesParamString } from './utils';
 const BASE_URL = 'https://api.rawg.io/api/games';
 
 export const getGames = async (params?: {
+  page?: number;
   genre?: string;
   date?: UrlParamsDatesValue;
   ordering?: UrlParamsSortValue;
@@ -31,13 +32,15 @@ export const getGames = async (params?: {
     queryParams.append('genres', params?.genre);
   }
 
+  if (params?.page) {
+    queryParams.append('page', String(params?.page));
+  }
+
   const url = `${BASE_URL}?${queryParams.toString()}`;
 
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch games from API.');
   }
-  const res = (await response.json()) as APIResponse;
-
-  return res.results as Game[];
+  return (await response.json()) as APIResponse;
 };

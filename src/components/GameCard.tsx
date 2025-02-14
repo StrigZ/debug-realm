@@ -74,7 +74,7 @@ export default function GameCard(
         )}
       </div>
       <div className="relative h-16 p-2">
-        <p className="truncate text-lg font-medium">{name}</p>
+        <p className="max-w-[80%] truncate text-lg font-medium">{name}</p>
         <ul className="flex gap-1 text-xs italic text-gray-200">
           {genres.map((genre) => (
             <li key={genre.id}>{genre.name}</li>

@@ -12,9 +12,10 @@ import { getQueryClient } from '~/lib/get-query-client';
 export default function Home() {
   const queryClient = getQueryClient();
 
-  void queryClient.prefetchQuery({
+  void queryClient.prefetchInfiniteQuery({
     queryKey: ['games', {}],
-    queryFn: () => getGames(),
+    queryFn: ({ pageParam }) => getGames({ page: pageParam }),
+    initialPageParam: 1,
   });
 
   void queryClient.prefetchQuery({

@@ -1,16 +1,18 @@
 'use client';
 
 import { Loader } from 'lucide-react';
+import { useRef } from 'react';
 
 import useFetchGames from '~/hooks/useFetchGames';
 import useScrollShadow from '~/hooks/useScrollShadow';
 import { cn } from '~/lib/utils';
+import { Game } from '~/types';
 
 import GameCard from './GameCard';
 
 type Props = { className?: string };
 export default function GameCardList({ className }: Props) {
-  const { games, isLoading } = useFetchGames();
+  const { data, isLoading, fetchNextPage } = useFetchGames();
 
   const { containerRef, handleScroll, isAtBottom } = useScrollShadow();
 
@@ -23,6 +25,7 @@ export default function GameCardList({ className }: Props) {
 
   return (
     <>
+      <button onClick={() => fetchNextPage()}>MORE</button>
       <ul
         className={cn(
           'relative grid grid-cols-[repeat(auto-fit,minmax(275px,1fr))] gap-8',
@@ -31,16 +34,24 @@ export default function GameCardList({ className }: Props) {
         ref={containerRef}
         onScroll={handleScroll}
       >
-        {games && games.length > 0 ? (
-          games.map((game) => (
-            <li key={game.id}>
-              <GameCard className="aspect-[16_/_9] shadow" {...game} />
-            </li>
-          ))
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            Nothing here...
-          </div>
+        {data?.pages.map(({ results }) =>
+          results.length === 0 ? (
+            <div
+              key={0}
+              className="flex h-full w-full items-center justify-center"
+            >
+              Nothing here...
+            </div>
+          ) : (
+            results.map((game) => (
+              <li key={(game as Game).id}>
+                <GameCard
+                  className="aspect-[16_/_9] shadow"
+                  {...(game as Game)}
+                />
+              </li>
+            ))
+          ),
         )}
       </ul>
       {!isAtBottom && (

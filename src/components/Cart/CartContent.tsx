@@ -8,12 +8,16 @@ export default function CartContent() {
   const { cart, addItem, deleteItem } = useCartContext();
 
   return (
-    <ul className="grid auto-rows-[150px] gap-4 overflow-auto px-4">
+    <ul className="grid auto-rows-[250px] gap-4 overflow-auto px-4">
       {cart.length > 0 ? (
         cart.map(({ game, id, amount }) => (
-          <li key={id} className="flex gap-4">
-            <GameCard {...game} isCartButtonVisible={false} />
-            <div className="flex items-center gap-2">
+          <li key={id} className="flex flex-col gap-4">
+            <GameCard
+              {...game}
+              isCartButtonVisible={false}
+              className="flex-1"
+            />
+            <div className="flex items-center justify-end gap-2">
               <button
                 className="transition-transform hover:scale-110 active:scale-95"
                 type="button"

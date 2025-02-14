@@ -24,4 +24,4 @@
 
 ## Cart
 
-- [ ] Fix game card overflow
+- [x] Fix game card overflow

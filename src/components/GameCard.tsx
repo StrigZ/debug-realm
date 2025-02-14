@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useCartContext } from '~/context/CartContextProvider';
 import { cn } from '~/lib/utils';
-import type { Game, Tag } from '~/types';
+import type { DetailedGame, Game, Tag } from '~/types';
 
 export const nsfwTags = ['nsfw', 'hentai', 'sex', 'nudity'];
 
@@ -36,7 +36,10 @@ export const checkIsNsfw = ({
 };
 
 export default function GameCard(
-  props: Game & { className?: string; isCartButtonVisible?: boolean },
+  props: (Game | DetailedGame) & {
+    className?: string;
+    isCartButtonVisible?: boolean;
+  },
 ) {
   const { className, isCartButtonVisible = true, ...game } = props;
   const { tags, slug, name, background_image, genres } = game;

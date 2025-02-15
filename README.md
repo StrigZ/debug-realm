@@ -2,8 +2,8 @@
 
 # TODO:
 
-- [ ] Apply shadcn styling to everything
-- [ ] Add button to toggle theme
+- [x] Apply shadcn styling to everything
+- [x] Add button to toggle theme
 
 ## Home page
 

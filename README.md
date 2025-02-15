@@ -1,5 +1,7 @@
 # Debug.Realm
 
+[DEMO](https://debugrealm.netlify.app/)
+
 # TODO:
 
 - [x] Apply shadcn styling to everything

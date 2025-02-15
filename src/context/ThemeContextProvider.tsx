@@ -1,6 +1,13 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 type ThemeContext = {
   isDarkTheme: boolean;
@@ -24,11 +31,11 @@ export default function ThemeContextProvider({
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   useEffect(() => initialThemeHandler());
 
-  function isLocalStorageEmpty(): boolean {
+  const isLocalStorageEmpty = useCallback(() => {
     return !localStorage.getItem('isDarkTheme');
-  }
+  }, []);
 
-  function initialThemeHandler(): void {
+  const initialThemeHandler = useCallback(() => {
     if (isLocalStorageEmpty()) {
       localStorage.setItem('isDarkTheme', `true`);
       document.querySelector('body')!.classList.add('dark');
@@ -44,29 +51,32 @@ export default function ThemeContextProvider({
         return isDarkTheme;
       });
     }
-  }
+  }, [isLocalStorageEmpty]);
 
-  function toggleThemeHandler(): void {
+  const setValueToLocalStorage = useCallback(() => {
+    localStorage.setItem('isDarkTheme', `${!isDarkTheme}`);
+  }, [isDarkTheme]);
+
+  const toggleThemeHandler = useCallback(() => {
     const isDarkTheme = JSON.parse(
       localStorage.getItem('isDarkTheme')!,
     ) as boolean;
     setIsDarkTheme(!isDarkTheme);
     toggleDarkClassToBody();
     setValueToLocalStorage();
-  }
+  }, [setValueToLocalStorage]);
 
   function toggleDarkClassToBody(): void {
     document.querySelector('body')!.classList.toggle('dark');
   }
 
-  function setValueToLocalStorage(): void {
-    localStorage.setItem('isDarkTheme', `${!isDarkTheme}`);
-  }
-
-  const value: ThemeContext = {
-    isDarkTheme,
-    toggleThemeHandler,
-  };
+  const value: ThemeContext = useMemo(
+    () => ({
+      isDarkTheme,
+      toggleThemeHandler,
+    }),
+    [isDarkTheme, toggleThemeHandler],
+  );
 
   return (
     <themeContext.Provider value={value}>{children}</themeContext.Provider>

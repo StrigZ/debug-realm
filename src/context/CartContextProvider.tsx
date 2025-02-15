@@ -5,6 +5,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 
@@ -87,14 +88,17 @@ export default function CartContextProvider({ children }: Props) {
     }, 2000);
   }, []);
 
-  const value: CartContext = {
-    cart,
-    isCheckout,
-    isCheckoutPending,
-    addItem,
-    deleteItem,
-    checkout,
-  };
+  const value: CartContext = useMemo(
+    () => ({
+      cart,
+      isCheckout,
+      isCheckoutPending,
+      addItem,
+      deleteItem,
+      checkout,
+    }),
+    [addItem, cart, checkout, deleteItem, isCheckout, isCheckoutPending],
+  );
 
   return <cartContext.Provider value={value}>{children}</cartContext.Provider>;
 }

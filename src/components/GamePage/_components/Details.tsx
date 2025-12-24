@@ -1,10 +1,6 @@
 import { format } from 'date-fns';
-import Image, { type ImageProps } from 'next/image';
+import Image from 'next/image';
 
-import nintendoSwitchIcon from '~/../public/nintendo-switch.svg';
-import playstationIcon from '~/../public/playstation.svg';
-import windowsIcon from '~/../public/windows-10.svg';
-import xboxIcon from '~/../public/xbox.svg';
 import type { DetailedGame } from '~/types';
 
 const PLATFORMS = [
@@ -20,15 +16,15 @@ const PLATFORMS = [
 
 type Platform = (typeof PLATFORMS)[number];
 
-const PLATFORM_ICONS: Record<Platform, ImageProps> = {
-  PC: windowsIcon as ImageProps,
-  'Xbox Series S/X': xboxIcon as ImageProps,
-  'PlayStation 5': playstationIcon as ImageProps,
-  'Xbox One': xboxIcon as ImageProps,
-  'PlayStation 4': playstationIcon as ImageProps,
-  'Nintendo Switch': nintendoSwitchIcon as ImageProps,
-  'Xbox 360': xboxIcon as ImageProps,
-  'PlayStation 3': playstationIcon as ImageProps,
+const PLATFORM_ICONS: Record<Platform, string> = {
+  PC: '/windows-10.svg',
+  'Xbox Series S/X': '/xbox.svg',
+  'PlayStation 5': '/playstation.svg',
+  'Xbox One': '/xbox.svg',
+  'PlayStation 4': '/playstation.svg',
+  'Nintendo Switch': '/nintendo-switch.svg',
+  'Xbox 360': '/xbox.svg',
+  'PlayStation 3': '/playstation.svg',
 };
 
 type Details = {
@@ -36,7 +32,10 @@ type Details = {
   properties: DetailsProperty[];
 };
 
-type DetailsProperty = { id: string | number; value: string | ImageProps };
+type DetailsProperty = {
+  id: string | number;
+  value: string;
+};
 
 export default function Details({
   platforms,
@@ -47,18 +46,11 @@ export default function Details({
   const platformIcons: DetailsProperty[] = [];
 
   platforms.forEach(({ platform: { name, id } }) => {
-    if (!PLATFORMS.includes(name as Platform)) {
-      return;
-    }
+    if (!PLATFORMS.includes(name as Platform)) return;
 
     const icon = PLATFORM_ICONS[name as Platform];
 
-    if (
-      !platformIcons.some(
-        (item) =>
-          !(typeof item.value === 'string') && item.value.src === icon.src,
-      )
-    ) {
+    if (!platformIcons.some((item) => item.value === icon)) {
       platformIcons.push({ id, value: icon });
     }
   });
@@ -70,15 +62,23 @@ export default function Details({
     },
     {
       categoryName: 'Genre',
-      properties: genres.map((item) => ({ id: item.id, value: item.name })),
+      properties: genres.map((item) => ({
+        id: item.id,
+        value: item.name,
+      })),
     },
     {
       categoryName: 'Publisher',
-      properties: developers.map((item) => ({ id: item.id, value: item.name })),
+      properties: developers.map((item) => ({
+        id: item.id,
+        value: item.name,
+      })),
     },
     {
       categoryName: 'Released',
-      properties: [{ id: 0, value: format(released, 'd MMMM yyyy') }],
+      properties: [
+        { id: 0, value: format(released, 'd MMMM yyyy') },
+      ],
     },
   ];
 
@@ -86,8 +86,9 @@ export default function Details({
     <div className="flex-[2] space-y-4">
       <div className="relative pb-2">
         <h3 className="text-2xl">Game Details</h3>
-        <div className="absolute bottom-0 left-0 h-px w-1/3 bg-muted"></div>
+        <div className="absolute bottom-0 left-0 h-px w-1/3 bg-muted" />
       </div>
+
       <ul className="flex flex-col gap-3">
         {details.map(({ categoryName, properties }) => (
           <li
@@ -97,13 +98,14 @@ export default function Details({
             <span className="col-span-1 text-base font-semibold">
               {categoryName}:
             </span>
+
             <ul className="col-span-full flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground xl:col-start-2">
               {properties.map(({ id, value }) => (
                 <li key={id} className="w-max text-base italic">
-                  {typeof value === 'string' ? (
-                    value
+                  {value.startsWith('/') ? (
+                    <Image src={value} width={24} height={24} alt="" />
                   ) : (
-                    <Image src={value.src} width={24} height={24} alt="" />
+                    value
                   )}
                 </li>
               ))}
